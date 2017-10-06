@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 namespace PowerSwitchProject
 {
+    // это изменение сделано для merge-тренировки 
     static class Program
     {
         /// <summary>
