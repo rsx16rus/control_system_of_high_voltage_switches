@@ -1,5 +1,7 @@
+$ cat .gitignore
 # комментарий Ч эта строка игнорируетс€
 # не обрабатывать файлы, им€ которых заканчиваетс€ на .a
 *.a
-.vs/
+PowerSwitchProject/.vs/
+desktop.ini
 PowerSwitchProject/PowerSwitchProject/obj/
