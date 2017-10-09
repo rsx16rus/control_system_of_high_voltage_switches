@@ -15,6 +15,12 @@ namespace PowerSwitchProject
         public Form1()
         {
             InitializeComponent();
+
+            using (UserContext db = new UserContext())
+            {
+                //создадим два объекта user
+                User dispetcher_ARES = new User();
+            }
         }
     }
 }
