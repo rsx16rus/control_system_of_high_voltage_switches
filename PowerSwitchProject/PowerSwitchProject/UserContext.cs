@@ -7,9 +7,9 @@ using System.Data.Entity;
 
 namespace PowerSwitchProject
 {
-    class UserContext:DbContext
+    class UserContext : DbContext
     {
-        public UserContext():base("DbConnection")
+        public UserContext() : base("DbConnection")
         {
         }
 

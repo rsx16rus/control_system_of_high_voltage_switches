@@ -19,7 +19,13 @@ namespace PowerSwitchProject
             using (UserContext db = new UserContext())
             {
                 //создадим два объекта user
-                User dispetcher_ARES = new User();
+                User dispetcher_ARES = new User { UserPosition="Диспетчер АРЕС"};
+                User nachalnikAGPS = new User { UserPosition = "Начальник АГПС" };
+
+                db.Users.Add(dispetcher_ARES);
+                db.Users.Add(nachalnikAGPS);
+                db.SaveChanges();
+                MessageBox.Show("Объекты успешно сохранены!");
             }
         }
     }

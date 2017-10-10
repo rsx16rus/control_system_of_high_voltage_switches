@@ -5,110 +5,110 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
-using System.Data.Linq;
+//using System.Data.Linq;
 using System.Configuration;
-using System.Data.Linq.Mapping;
+//using System.Data.Linq.Mapping;
 using System.Windows.Forms;
 
 namespace PowerSwitchProject
 {
-    [Table(Name = "Table_Electrical_Substation")]
+    //[Table(Name = "Table_Electrical_Substation")]
     class Electrical_Substation
     {
-        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id_Electrical_Substation { get; set; }
-        [Column]
+        //[Column]
         public string Name_Electrical_Substation { get; set; }
-        [Column]
+        //[Column]
         public int Id_Group_PS { get; set; }
-        [Column]
+        //[Column]
         public int Id_RES { get; set; }
     }
 
-    [Table(Name = "Table_Group_PS")]
+    //[Table(Name = "Table_Group_PS")]
     class Group_PS
     {
-        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id_Group_PS { get; set; }
-        [Column]
+        //[Column]
         public string Name_Group_PS { get; set; }
     }
 
-    [Table(Name = "Table_RES")]
+    //[Table(Name = "Table_RES")]
     class RES
     {
-        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id_RES { get; set; }
-        [Column]
+        //[Column]
         public string Name_RES { get; set; }
     }
 
-    [Table(Name = "Table_Switch_Model")]
+    //[Table(Name = "Table_Switch_Model")]
     public class Switch_model
     {
-        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id_Switch_Model { get; set; }  //ид модели ВВ
-        [Column]
+        //[Column]
         public string Switch_Model_Name { get; set; }  //наименование модели ВВ
-        [Column]
+        //[Column]
         public int Voltage_Class { get; set; }  //класс напряжения
-        [Column]
+        //[Column]
         public int Mechanical_Resource_Limit { get; set; }  //предел механического ресурса
-        [Column]
+        //[Column]
         public int Electrical_Resource_Limit { get; set; }  //предел электрического ресурса
-        [Column]
+        //[Column]
         public string Factory_Name { get; set; }  //наименование завода
-        [Column]
+        //[Column]
         public int Nominal_Amperage { get; set; }  //номинальный ток
-        [Column]
+        //[Column]
         public int Short_Circuit_Amperage { get; set; }  //ток короткого замыкания(ток отключения)      
     }
 
-    [Table(Name = "Table_Operating_switch")]
+    //[Table(Name = "Table_Operating_switch")]
     public class Operating_switch
     {
-        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id_Operating_switch { get; set; } //ид работающего выключателя
-        [Column]
+        //[Column]
         public string Dispatching_name { get; set; } //диспетчерское наименование
-        [Column]
+        //[Column]
         public int? Pole_wearA { get; set; }          //износ полюса
-        [Column]
+        //[Column]
         public int? Pole_wearB { get; set; }          //
-        [Column]
+        //[Column]
         public int? Pole_wearC { get; set; }          //
-        [Column]
+        //[Column]
         public int? Number_of_Short_Circuits { get; set; }  //количество КЗ
-        [Column]
+        //[Column]
         public int? Number_of_mechanical_Shutdowns { get; set; }  //количество мех откл
-        [Column]
+        //[Column]
         public DateTime? Date_of_Maintenance { get; set; }  //дата ТО
-        [Column]
+        //[Column]
         public DateTime? Date_of_Overhaul { get; set; }  //дата КР
-        [Column]
+        //[Column]
         public DateTime? Date_of_Manufacture { get; set; }  //дата производства
-        [Column]
+        //[Column]
         public DateTime? Date_of_Comissioning { get; set; }  //дата ввода в эксплуатацию
-        [Column]
+        //[Column]
         public string Factory_Number { get; set; }  //заводской номер
-        [Column]
+        //[Column]
         public int Id_Switch_model { get; set; }  //ид модели выключателя
-        [Column]
+        //[Column]
         public int Id_Electrical_Substation { get; set; }  //ид электроподстанции        
     }
 
-    [Table(Name = "Users")]
+    //[Table(Name = "Users")]
     public class User
     {
-        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int IdUserPosition { get; set; }
-        [Column]
+        //[Column]
         public string UserPosition { get; set; }
-        [Column]
+        //[Column]
         public string Password { get; set; }
-        [Column]
+        //[Column]
         public string UserType { get; set; }
-        [Column]
-        public int IdSubDivision { get; set; }
+        //[Column]
+        //public int IdSubDivision { get; set; }
     }
 }
