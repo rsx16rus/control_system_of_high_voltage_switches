@@ -16,7 +16,7 @@ namespace PowerSwitchProject
     class Electrical_Substation
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-        public int Id_Electrical_Substation { get; set; }
+        public int Id { get; set; }
         //[Column]
         public string Name_Electrical_Substation { get; set; }
         //[Column]
@@ -29,7 +29,7 @@ namespace PowerSwitchProject
     class Group_PS
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-        public int Id_Group_PS { get; set; }
+        public int Id { get; set; }
         //[Column]
         public string Name_Group_PS { get; set; }
     }
@@ -38,7 +38,7 @@ namespace PowerSwitchProject
     class RES
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-        public int Id_RES { get; set; }
+        public int Id { get; set; }
         //[Column]
         public string Name_RES { get; set; }
     }
@@ -47,7 +47,7 @@ namespace PowerSwitchProject
     public class Switch_model
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-        public int Id_Switch_Model { get; set; }  //ид модели ВВ
+        public int Id { get; set; }  //ид модели ВВ
         //[Column]
         public string Switch_Model_Name { get; set; }  //наименование модели ВВ
         //[Column]
@@ -68,7 +68,7 @@ namespace PowerSwitchProject
     public class Operating_switch
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-        public int Id_Operating_switch { get; set; } //ид работающего выключателя
+        public int Id { get; set; } //ид работающего выключателя
         //[Column]
         public string Dispatching_name { get; set; } //диспетчерское наименование
         //[Column]
@@ -101,7 +101,7 @@ namespace PowerSwitchProject
     public class User
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
-        public int IdUserPosition { get; set; }
+        public int Id { get; set; }
         //[Column]
         public string UserPosition { get; set; }
         //[Column]
@@ -109,6 +109,6 @@ namespace PowerSwitchProject
         //[Column]
         public string UserType { get; set; }
         //[Column]
-        //public int IdSubDivision { get; set; }
+        public int IdSubDivision { get; set; }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Entity;
 
 namespace PowerSwitchProject
 {
@@ -14,19 +15,22 @@ namespace PowerSwitchProject
     {
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
+        }
 
-            using (UserContext db = new UserContext())
-            {
-                //создадим два объекта user
-                User dispetcher_ARES = new User { UserPosition="Диспетчер АРЕС"};
-                User nachalnikAGPS = new User { UserPosition = "Начальник АГПС" };
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //using (UserContext db = new UserContext())
+            //{
+            //    //создадим два объекта user
+            //    User dispetcher_ARES = new User { UserPosition = "Диспетчер АРЕС" };
+            //    User nachalnikAGPS = new User { UserPosition = "Начальник АГПС" };
 
-                db.Users.Add(dispetcher_ARES);
-                db.Users.Add(nachalnikAGPS);
-                db.SaveChanges();
-                MessageBox.Show("Объекты успешно сохранены!");
-            }
+            //    db.Users.Add(dispetcher_ARES);
+            //    db.Users.Add(nachalnikAGPS);
+            //    db.SaveChanges();
+            //    MessageBox.Show("Объекты успешно сохранены!");
+            //}
         }
     }
 }
