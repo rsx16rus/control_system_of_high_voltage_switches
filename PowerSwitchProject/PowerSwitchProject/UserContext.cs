@@ -12,7 +12,7 @@ namespace PowerSwitchProject
         public UserContext() : base("DbConnection")
         {
         }
-
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Electrical_Substation> Electrical_Substations { get; set; }
         public DbSet<Group_PS> Group_PSes { get; set; }
