@@ -24,7 +24,7 @@ namespace PowerSwitchProject.MyModels
         public DbSet DbSet { get; set; }
         public void MyOperForm()
         {
-            new 
+           Application.Run(new DispetcherInsertedForm());
         }
     }
 }

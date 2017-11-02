@@ -20,4 +20,22 @@ namespace PowerSwitchProject
         public DbSet<Switch_model> Switch_models { get; set; }
         public DbSet<Operating_switch> Operating_switches { get; set; }
     }
+
+    class MyLocalData
+    {
+        UserContext db;
+        public UserContext DataFill()
+        {
+            db = new UserContext();
+            db.Electrical_Substations.Load();
+            db.Group_PSes.Load();
+            db.Operating_switches.Load();
+            db.RESes.Load();
+            db.Switch_models.Load();
+            db.Users.Load();
+            //context.Customers.Where(c => c.Age > 25).Load(); Пример загрузки по атрибутам
+            return db;
+        }
+        
+    }
 }

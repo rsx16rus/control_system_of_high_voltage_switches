@@ -98,7 +98,7 @@ namespace PowerSwitchProject
     }
 
     //[Table(Name = "Users")]
-    public class User
+    public class User //????????????????? требует доработки
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
@@ -111,4 +111,5 @@ namespace PowerSwitchProject
         //[Column]
         public int IdSubDivision { get; set; }
     }
+    
 }

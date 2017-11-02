@@ -9,17 +9,28 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.Linq.Mapping;
 using System.Data.Linq;
+using System.Data.Entity;
 using System.Windows;
 
 namespace PowerSwitchProject
 {
     public partial class MyMainWindowForm : Form
     {
+        User user;
         public MyMainWindowForm()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
+        public MyMainWindowForm(User u)
+        {
+            user = u;
+            UserContext myLocalData;
+            MyLocalData obj = new MyLocalData();
+            myLocalData = obj.DataFill();
+
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         private void MyMainWindowForm_Load(object sender, EventArgs e)
         {
             List_of list_of = new List_of();
@@ -171,7 +182,31 @@ namespace PowerSwitchProject
             }
             else
             {
-                MessageBox.Show("Ошибка: У пользователя нет доступа!");                
+                MessageBox.Show("Ошибка: У пользователя нет доступа!");
+            }
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    }
+
+    class ButtonFill
+    {
+        public void ButtonElSubfill(UserContext db)
+        {
+            //Создание кнопок подстанций
+            foreach (var electricalSubstation in db.Electrical_Substations.Local)
+            {
+                Button newButton = new Button();
+                newButton.Name = "PS_Id_" + Convert.ToString(electricalSubstation.Id);//Остановился здесь 02.11.17
+                newButton.BackColor = Color.Silver;
+                newButton.Text = electricalSubstation.Name_Electrical_Substation;
+                newButton.Size = new Size(140, 50);
+                {   //задаю значение Margin
+                    var margin = newButton.Margin;
+                    margin.All = 10;
+                    newButton.Margin = margin;
+                }
+                newButton.Click += new EventHandler(this.PS_Id_Click);
+                flowLayoutPanel_PStancii.Controls.Add(newButton);
             }
         }
     }

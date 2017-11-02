@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 using System.Data.Linq;
+using System.Data.Entity;
 using System.Data.Linq.Mapping;
 
 
@@ -29,10 +31,12 @@ namespace PowerSwitchProject
             if (comboBoxUsers.SelectedItem != null)
             {
                 User_Detecting detect = new User_Detecting();
-                User user = detect.User_Detect(comboBoxUsers.SelectedItem.ToString(), textBoxPassword.Text);                
+                User user = detect.User_Detect(comboBoxUsers.SelectedItem.ToString(), textBoxPassword.Text);
                 if (user != null)///такая ли будет проверка в финальной версии?
-                {                    
-                    Program.user = user;
+                {
+                    Controller.myUser = user;
+                    DataSet ds;
+
                     this.Close();
                 }
             }
@@ -48,5 +52,39 @@ namespace PowerSwitchProject
             Application.Exit(); //Закрытие приложения
             //Environment.Exit(0);            
         }
+    }
+
+    class User_Detecting
+    {
+        public string[] Users()
+        {
+            using (UserContext db = new UserContext())
+            {
+                var query = from u in db.Users select u.UserPosition;
+                string[] users = query.ToArray();
+                return users;
+            }
+        }
+        public User User_Detect(string selected_user_position, string password)
+        {
+            using (UserContext db = new UserContext())
+            {
+                //try
+                //{
+                User user = db.Users.First(u => ((u.UserPosition == selected_user_position) && (u.Password == password)));
+                return user;
+                //}
+                //catch (InvalidOperationException)
+                //{
+                //    MessageBox.Show("Неверный пароль, проверьте правильность ввода и отсутствие лишних пробелов");
+                //}
+                //catch (ArgumentNullException)
+                //{
+                //    MessageBox.Show("Неверный пароль, проверьте правильность ввода и отсутствие лишних пробелов");
+                //}
+
+            }
+        }
+        
     }
 }
