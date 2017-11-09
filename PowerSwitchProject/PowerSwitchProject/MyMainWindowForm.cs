@@ -17,6 +17,7 @@ namespace PowerSwitchProject
     public partial class MyMainWindowForm : Form
     {
         User user;
+        UserContext myLocalData;
         public MyMainWindowForm()
         {
             InitializeComponent();
@@ -25,32 +26,22 @@ namespace PowerSwitchProject
         public MyMainWindowForm(User u)
         {
             user = u;
-            UserContext myLocalData;
             MyLocalData obj = new MyLocalData();
-            myLocalData = obj.DataFill();
+            myLocalData = obj.DataFill();//не забывай указывать Local
 
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        private void MyMainWindowForm_Load(object sender, EventArgs e)
-        {
-            List_of list_of = new List_of();
-            IOrderedQueryable<Electrical_Substation> electricalSubstation_List = list_of.Searched_PS(Program.user);
             { //текст в кнопках вывода количества изношенных ВВ
-                Number_of_Switches numOfsw = new Number_of_Switches();
-                int numOfKZ = numOfsw.NumberOfSwitch_ShortCircuits(electricalSubstation_List);
-                //int numOfMex = numOfsw.NumberOfSwitch_MechanicalShutdowns(electricalSubstation_List);
+                Switch_Counting counting = new Switch_Counting();
+                int numOfKZ = counting.NumberOfSwitch_ShortCircuits(myLocalData);
                 button_NumberOf_KZ.Text = "Количество ВВ    с пределом     КЗ =     " + numOfKZ;
-                int numOfMex = numOfsw.NumberOfSwitch_MechanicalShutdowns(electricalSubstation_List);
+                int numOfMex = counting.NumberOfSwitch_MechanicalShutdowns(myLocalData);
                 button_NumberOf_Mehiznos.Text = "Количество ВВ с пределом износа = " + numOfMex;
             }
-            //Создание кнопок подстанций
-            foreach (var electricalSubstation in electricalSubstation_List)
+
+            //Наполнение кнопками с именами электроподстанций (Блок готов)
+            foreach (var electricalSubstation in myLocalData.Electrical_Substations.Local)
             {
-                Button newButton = new Button();
-                newButton.Name = "PS_Id_" + Convert.ToString(electricalSubstation.Id_Electrical_Substation);
-                newButton.BackColor = Color.Silver;
-                newButton.Text = electricalSubstation.Name_Electrical_Substation;
-                newButton.Size = new Size(140, 50);
+                Button_Fill bf = new Button_Fill();
+                Button newButton = bf.Button_Plus(("PS_Id_" + Convert.ToString(electricalSubstation.Id)), electricalSubstation.Name_Electrical_Substation, 140, 50);//Проверь какое Name присваивается Button
                 {   //задаю значение Margin
                     var margin = newButton.Margin;
                     margin.All = 10;
@@ -59,14 +50,11 @@ namespace PowerSwitchProject
                 newButton.Click += new EventHandler(this.PS_Id_Click);
                 flowLayoutPanel_PStancii.Controls.Add(newButton);
             }
-            if (Program.user.UserType == "Начальник ГПС")
+            if (user.UserType == "Начальник ГПС") //(Блок готов)
             {
-                Button insertPS = new Button();
-                insertPS.Name = "insertPS_Button";
-                insertPS.BackColor = Color.WhiteSmoke;
-                insertPS.Text = "+ Новая подстанция";
-                insertPS.Size = new Size(140, 50);
-                {
+                Button_Fill bf = new Button_Fill();
+                Button insertPS = bf.Button_Plus("insertPS_Button", "+ Новая подстанция", 140, 50); //Проверь какое Name присваивается Button  
+                {   //задаю значение Margin
                     var margin = insertPS.Margin;
                     margin.All = 10;
                     insertPS.Margin = margin;
@@ -74,6 +62,7 @@ namespace PowerSwitchProject
                 insertPS.Click += new EventHandler(this.insertPS_Button_Click);
                 flowLayoutPanel_PStancii.Controls.Add(insertPS);
             }
+
         }
 
         private void PS_Id_Click(object sender, EventArgs e)
@@ -93,23 +82,21 @@ namespace PowerSwitchProject
             //}
 
             //название выбранной ПС
-            List_of list_of = new List_of();
-            label_Selected_PS.Text = list_of.Label_Text_SelectedPS(electrical_Substation_Id);
+            //List_of list_of = new List_of();
+            label_Selected_PS.Text = myLocalData.Electrical_Substations.Local.Single(u => u.Id == electrical_Substation_Id).ToString();// ВАЖНО проверить работоспособность этой строки!!!
 
+            /////////////////////////Я здесь остановился
             int[] voltage = new int[] { 10, 35, 110, 220 };
             FlowLayoutPanel[] panels = new FlowLayoutPanel[] { flowLayoutPanel_10kB, flowLayoutPanel_35kB, flowLayoutPanel_110_more_kB, flowLayoutPanel_110_more_kB };
             for (int i = 0; i < voltage.Length; i++)
             {
-                IEnumerable<Operating_switch> Operating_swithes_of_PS = list_of.Operating_switches_of_PS(electrical_Substation_Id, voltage[i]);
+                var Operating_swithes_of_PS = list_of.Operating_switches_of_PS(electrical_Substation_Id, voltage[i]);
 
                 //Создание кнопок ВВ
-                foreach (var Oper_switch in Operating_swithes_of_PS)
+                foreach (var Oper_switch in Operating_swithes_of_PS)//(Блок готов)
                 {
-                    Button newButton = new Button();
-                    newButton.Name = "Switch_Id_" + Convert.ToString(Oper_switch.Id_Operating_switch);
-                    newButton.BackColor = Color.Silver;
-                    newButton.Text = Oper_switch.Dispatching_name;
-                    newButton.Size = new Size(130, 40);
+                    Button_Fill bf = new Button_Fill();
+                    Button newButton = bf.Button_Plus(("Switch_Id_" + Convert.ToString(Oper_switch.Id)), Oper_switch.Dispatching_name, 130, 40);//Проверь какое Name присваивается Button                       
                     {   //задаю значение Margin
                         var margin = newButton.Margin;
                         margin.Left = 35;
@@ -121,14 +108,12 @@ namespace PowerSwitchProject
                     newButton.Click += new EventHandler(this.VV_Click);
                     panels[i].Controls.Add(newButton);
                 }
-                if (Program.user.UserType == "Начальник ГПС")
+                if (user.UserType == "Начальник ГПС")//(Блок готов)
                 {
-                    Button insertOperSw = new Button();
-                    insertOperSw.Name = "insertOperSw_Button";
-                    insertOperSw.BackColor = Color.WhiteSmoke;
-                    insertOperSw.Text = "+ Новый выключатель";
-                    insertOperSw.Size = new Size(130, 40);
-                    {
+
+                    Button_Fill bf = new Button_Fill();
+                    Button insertOperSw = bf.Button_Plus("insertOperSw_Button", "+ Новый выключатель", 130, 40);//Проверь какое Name присваивается Button                    
+                    {   //задаю значение Margin
                         var margin = insertOperSw.Margin;
                         margin.Left = 35;
                         margin.Right = 0;
@@ -188,26 +173,27 @@ namespace PowerSwitchProject
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
-    class ButtonFill
+
+    class Button_Fill //(Готов)
     {
-        public void ButtonElSubfill(UserContext db)
+        //public Button Button_Ps_Filling(UserContext db, Electrical_Substation elsub)
+        //{
+        //    //Создание кнопок подстанций
+        //    Button newButton = new Button();
+        //    newButton.Name = "PS_Id_" + Convert.ToString(elsub.Id);
+        //    newButton.BackColor = Color.Silver;
+        //    newButton.Text = elsub.Name_Electrical_Substation;
+        //    newButton.Size = new Size(140, 50);            
+        //    return newButton;
+        //}
+        public Button Button_Plus(string button_name, string button_text, int width, int height)
         {
-            //Создание кнопок подстанций
-            foreach (var electricalSubstation in db.Electrical_Substations.Local)
-            {
-                Button newButton = new Button();
-                newButton.Name = "PS_Id_" + Convert.ToString(electricalSubstation.Id);//Остановился здесь 02.11.17
-                newButton.BackColor = Color.Silver;
-                newButton.Text = electricalSubstation.Name_Electrical_Substation;
-                newButton.Size = new Size(140, 50);
-                {   //задаю значение Margin
-                    var margin = newButton.Margin;
-                    margin.All = 10;
-                    newButton.Margin = margin;
-                }
-                newButton.Click += new EventHandler(this.PS_Id_Click);
-                flowLayoutPanel_PStancii.Controls.Add(newButton);
-            }
+            Button newButton = new Button();
+            newButton.Name = button_name;
+            newButton.BackColor = Color.Silver;
+            newButton.Text = button_text;
+            newButton.Size = new Size(width, height);
+            return newButton;
         }
     }
 }
