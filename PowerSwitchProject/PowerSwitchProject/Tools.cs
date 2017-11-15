@@ -46,6 +46,16 @@ namespace PowerSwitchProject
             }
             return numOfMex;
         }
+    }
 
+    class List_of_switches
+    {
+        public IEnumerable<Operating_switch> Create_a_list_of_switches(Electrical_Substation electrical_Substation, int voltage, UserContext db)
+        {
+            var list = from u in db.Operating_switches.Local
+                       where u.Id_Electrical_Substation == electrical_Substation.Id
+                       select u;
+            return list;
+        }
     }
 }

@@ -83,14 +83,14 @@ namespace PowerSwitchProject
 
             //название выбранной ПС
             //List_of list_of = new List_of();
-            label_Selected_PS.Text = myLocalData.Electrical_Substations.Local.Single(u => u.Id == electrical_Substation_Id).ToString();// ВАЖНО проверить работоспособность этой строки!!!
-
-            /////////////////////////Я здесь остановился
+            Electrical_Substation selectedElectrical_Substation = myLocalData.Electrical_Substations.Local.Single(u => u.Id == electrical_Substation_Id);
+                        
             int[] voltage = new int[] { 10, 35, 110, 220 };
             FlowLayoutPanel[] panels = new FlowLayoutPanel[] { flowLayoutPanel_10kB, flowLayoutPanel_35kB, flowLayoutPanel_110_more_kB, flowLayoutPanel_110_more_kB };
+            List_of_switches list_Of_Switches = new List_of_switches();
             for (int i = 0; i < voltage.Length; i++)
             {
-                var Operating_swithes_of_PS = list_of.Operating_switches_of_PS(electrical_Substation_Id, voltage[i]);
+                var Operating_swithes_of_PS = list_Of_Switches.Create_a_list_of_switches(selectedElectrical_Substation, voltage[i], myLocalData);
 
                 //Создание кнопок ВВ
                 foreach (var Oper_switch in Operating_swithes_of_PS)//(Блок готов)
@@ -129,7 +129,7 @@ namespace PowerSwitchProject
                 }
             }
         }
-
+        //Остановился здесь!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private void insertPS_Button_Click(object sender, EventArgs e)
         {
             Form_insertPS formInsertPS = new PowerSwitchProject.Form_insertPS(this);

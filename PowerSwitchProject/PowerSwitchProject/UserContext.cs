@@ -24,7 +24,7 @@ namespace PowerSwitchProject
     class MyLocalData
     {
         UserContext db;
-        public UserContext DataFill()
+        public UserContext DataFill()// В рабочей версии должны подгружаться только данные пользователя.
         {
             db = new UserContext();
             db.Electrical_Substations.Load();
