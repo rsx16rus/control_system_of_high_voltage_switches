@@ -9,17 +9,16 @@ namespace PowerSwitchProject
 {
     public static class Controller
     {
-        public static User myUser;
+        //Статичный экземпляр UserContext пользователя хранится в классе MyLocalData
+        public static User myUser;        
         public static void ApplicRun()
         {
             Application.Run(new IdentityForm());
             if (myUser != null)
             {
-
+                Application.Run(new MyMainWindowForm(myUser));
             }
             else Application.Exit();
-            
-
         }
     }
 }

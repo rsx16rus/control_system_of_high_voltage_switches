@@ -17,28 +17,28 @@ namespace PowerSwitchProject
     public partial class MyMainWindowForm : Form
     {
         User user;
-        UserContext myLocalData;
+        UserContext myUserContext;
         public MyMainWindowForm()
         {
             InitializeComponent();
         }
 
-        public MyMainWindowForm(User u)
+        public MyMainWindowForm(User u)//Переделай все начиная от Контроллера
         {
             user = u;
             MyLocalData obj = new MyLocalData();
-            myLocalData = obj.DataFill();//не забывай указывать Local
+            myUserContext = MyLocalData.userContext;//не забывай указывать Local
 
             { //текст в кнопках вывода количества изношенных ВВ
                 Switch_Counting counting = new Switch_Counting();
-                int numOfKZ = counting.NumberOfSwitch_ShortCircuits(myLocalData);
+                int numOfKZ = counting.NumberOfSwitch_ShortCircuits(myUserContext);
                 button_NumberOf_KZ.Text = "Количество ВВ    с пределом     КЗ =     " + numOfKZ;
-                int numOfMex = counting.NumberOfSwitch_MechanicalShutdowns(myLocalData);
+                int numOfMex = counting.NumberOfSwitch_MechanicalShutdowns(myUserContext);
                 button_NumberOf_Mehiznos.Text = "Количество ВВ с пределом износа = " + numOfMex;
             }
 
             //Наполнение кнопками с именами электроподстанций (Блок готов)
-            foreach (var electricalSubstation in myLocalData.Electrical_Substations.Local)
+            foreach (var electricalSubstation in myUserContext.Electrical_Substations.Local)
             {
                 Button_Fill bf = new Button_Fill();
                 Button newButton = bf.Button_Plus(("PS_Id_" + Convert.ToString(electricalSubstation.Id)), electricalSubstation.Name_Electrical_Substation, 140, 50);//Проверь какое Name присваивается Button
@@ -83,14 +83,14 @@ namespace PowerSwitchProject
 
             //название выбранной ПС
             //List_of list_of = new List_of();
-            Electrical_Substation selectedElectrical_Substation = myLocalData.Electrical_Substations.Local.Single(u => u.Id == electrical_Substation_Id);
+            Electrical_Substation selectedElectrical_Substation = myUserContext.Electrical_Substations.Local.Single(u => u.Id == electrical_Substation_Id);
                         
             int[] voltage = new int[] { 10, 35, 110, 220 };
             FlowLayoutPanel[] panels = new FlowLayoutPanel[] { flowLayoutPanel_10kB, flowLayoutPanel_35kB, flowLayoutPanel_110_more_kB, flowLayoutPanel_110_more_kB };
             List_of_switches list_Of_Switches = new List_of_switches();
             for (int i = 0; i < voltage.Length; i++)
             {
-                var Operating_swithes_of_PS = list_Of_Switches.Create_a_list_of_switches(selectedElectrical_Substation, voltage[i], myLocalData);
+                var Operating_swithes_of_PS = list_Of_Switches.Create_a_list_of_switches(selectedElectrical_Substation, voltage[i], myUserContext);
 
                 //Создание кнопок ВВ
                 foreach (var Oper_switch in Operating_swithes_of_PS)//(Блок готов)
@@ -132,7 +132,7 @@ namespace PowerSwitchProject
         //Остановился здесь!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         private void insertPS_Button_Click(object sender, EventArgs e)
         {
-            Form_insertPS formInsertPS = new PowerSwitchProject.Form_insertPS(this);
+            Form_insertPS formInsertPS = new Form_insertPS(this);
             formInsertPS.Show();
         }
         private void insertOperSw_Button_Click(object sender, EventArgs e)
@@ -155,7 +155,7 @@ namespace PowerSwitchProject
             //    return;
             //}
 
-            if (Program.user.UserType == "Начальник ГПС" | Program.user.UserType == "ПТО" | Program.user.UserType == "Руководство")
+            if (user.UserType == "Начальник ГПС" | user.UserType == "ПТО" | user.UserType == "Руководство")
             {
                 Form_OperationSwitch OperSwForm = new PowerSwitchProject.Form_OperationSwitch(oper_switch_Id);
                 OperSwForm.Show();

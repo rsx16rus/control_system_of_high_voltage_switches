@@ -32,11 +32,11 @@ namespace PowerSwitchProject
             {
                 User_Detecting detect = new User_Detecting();
                 User user = detect.User_Detect(comboBoxUsers.SelectedItem.ToString(), textBoxPassword.Text);
-                if (user != null)///такая ли будет проверка в финальной версии?
+                if (user != null)///в финальной версии такая ли будет проверка?
                 {
                     Controller.myUser = user;
-                    DataSet ds;
-
+                    MyLocalData obj = new MyLocalData();
+                    obj.DataFill(user);                   
                     this.Close();
                 }
             }

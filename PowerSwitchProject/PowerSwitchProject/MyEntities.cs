@@ -32,6 +32,8 @@ namespace PowerSwitchProject
         public int Id { get; set; }
         //[Column]
         public string Name_Group_PS { get; set; }
+
+        public int ID_User { get; set; }
     }
 
     //[Table(Name = "Table_RES")]
@@ -41,6 +43,8 @@ namespace PowerSwitchProject
         public int Id { get; set; }
         //[Column]
         public string Name_RES { get; set; }
+
+        public int ID_User { get; set; }
     }
 
     //[Table(Name = "Table_Switch_Model")]
@@ -109,7 +113,7 @@ namespace PowerSwitchProject
         //[Column]
         public string UserType { get; set; }
         //[Column]
-        public int IdSubDivision { get; set; }
+        //public int IdSubDivision { get; set; }
     }
     
 }
