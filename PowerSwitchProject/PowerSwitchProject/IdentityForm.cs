@@ -26,7 +26,7 @@ namespace PowerSwitchProject
             comboBoxUsers.Items.AddRange(users);//ввожу элементы выпадающего списка
         }
 
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)// Для повышения производительности надо убрать повторное обращение к БД
         {
             if (comboBoxUsers.SelectedItem != null)
             {
@@ -34,9 +34,7 @@ namespace PowerSwitchProject
                 User user = detect.User_Detect(comboBoxUsers.SelectedItem.ToString(), textBoxPassword.Text);
                 if (user != null)///в финальной версии такая ли будет проверка?
                 {
-                    Controller.myUser = user;
-                    MyLocalData obj = new MyLocalData();
-                    obj.DataFill(user);                   
+                    Controller.myUser = user;                                      
                     this.Close();
                 }
             }

@@ -16,6 +16,8 @@ namespace PowerSwitchProject
             Application.Run(new IdentityForm());
             if (myUser != null)
             {
+                MyLocalData obj = new MyLocalData();
+                obj.DataFill(myUser);
                 Application.Run(new MyMainWindowForm(myUser));
             }
             else Application.Exit();

@@ -66,6 +66,12 @@
     <Compile Include="Form_insertPS.designer.cs">
       <DependentUpon>Form_insertPS.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_OperationSwitch_New.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_OperationSwitch_New.designer.cs">
+      <DependentUpon>Form_OperationSwitch_New.cs</DependentUpon>
+    </Compile>
     <Compile Include="IdentityForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +104,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_insertPS.resx">
       <DependentUpon>Form_insertPS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_OperationSwitch_New.resx">
+      <DependentUpon>Form_OperationSwitch_New.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IdentityForm.resx">
       <DependentUpon>IdentityForm.cs</DependentUpon>

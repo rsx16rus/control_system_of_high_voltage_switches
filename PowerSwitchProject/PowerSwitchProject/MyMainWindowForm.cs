@@ -23,10 +23,9 @@ namespace PowerSwitchProject
             InitializeComponent();
         }
 
-        public MyMainWindowForm(User u)//Переделай все начиная от Контроллера
+        public MyMainWindowForm(User u)
         {
-            user = u;
-            MyLocalData obj = new MyLocalData();
+            user = u;            
             myUserContext = MyLocalData.userContext;//не забывай указывать Local
 
             { //текст в кнопках вывода количества изношенных ВВ

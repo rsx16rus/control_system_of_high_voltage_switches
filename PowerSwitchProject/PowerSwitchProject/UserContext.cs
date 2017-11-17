@@ -32,8 +32,8 @@ namespace PowerSwitchProject
             userContext.Group_PSes.Where(u => u.ID_User == user.Id).Load();
             userContext.Operating_switches.Load();
             userContext.RESes.Where(u => u.ID_User == user.Id).Load();
-            userContext.Switch_models.Load();
-            userContext.Users.Load();
+            userContext.Switch_models.Load();//Заходит целиком
+            userContext.Users.Load();//Заходит целиком
             //context.Customers.Where(c => c.Age > 25).Load(); Пример загрузки по атрибутам            
         }
 
