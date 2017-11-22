@@ -28,7 +28,21 @@ namespace PowerSwitchProject
         public void DataFill(User user)// В рабочей версии должны подгружаться только данные пользователя.
         {
             userContext = new UserContext();
-            userContext.Electrical_Substations.Where(u=> u.Id_Group_PS == userContext.Group_PSes.Where(c=>c.ID_User==user.Id);
+
+            //training
+            var r = from Electrical_Substation in userContext.Electrical_Substations
+                    join Group_PS in (from g in userContext.Group_PSes
+                                      where g.ID_User == user.Id
+                                      select g) on
+                    Electrical_Substation.Id_Group_PS equals Group_PS.Id
+                    select Electrical_Substation;
+
+
+
+            userContext.Electrical_Substations.Join(userContext.Group_PSes.Where(u => u.ID_User == user.Id),
+                c => c.Id_Group_PS,
+                o => o.Id,
+                (c, o) => c).Load();//Обязательно проверь правильность работы
             userContext.Group_PSes.Where(u => u.ID_User == user.Id).Load();
             userContext.Operating_switches.Load();
             userContext.RESes.Where(u => u.ID_User == user.Id).Load();
