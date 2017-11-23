@@ -29,7 +29,7 @@ namespace PowerSwitchProject
         }
         public DispetcherInsertedForm(int VV_ID)
         {
-            InitializeComponent();            
+            InitializeComponent();
             DataContext db = new DataContext(Program.connectionString);
             switchModels = db.GetTable<Switch_model>();
             electrSubstations = db.GetTable<Electrical_Substation>();
@@ -49,7 +49,7 @@ namespace PowerSwitchProject
         private void textBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 46) e.KeyChar = ',';
-            if ((e.KeyChar <= 47 || e.KeyChar >= 59) && e.KeyChar != 8 && e.KeyChar!=44)
+            if ((e.KeyChar <= 47 || e.KeyChar >= 59) && e.KeyChar != 8 && e.KeyChar != 44)
                 e.Handled = true;
         }
 
@@ -68,7 +68,7 @@ namespace PowerSwitchProject
         {
             try
             {
-                if (textBox_Short_Circuit_Amperage.Text.Length!=0)
+                if (textBox_Short_Circuit_Amperage.Text.Length != 0)
                 {
                     short_circuit_amperage = double.Parse(textBox_Short_Circuit_Amperage.Text);
                     tools.APV_Successfully(phase_name, short_circuit_amperage, selected_Oper_switch);
@@ -107,7 +107,7 @@ namespace PowerSwitchProject
                 if (textBox_Short_Circuit_Amperage.Text.Length != 0)
                 {
                     short_circuit_amperage = double.Parse(textBox_Short_Circuit_Amperage.Text);
-                    tools.APV_Unsuccessfully(phase_name, (short_circuit_amperage*2), selected_Oper_switch);
+                    tools.APV_Unsuccessfully(phase_name, (short_circuit_amperage * 2), selected_Oper_switch);
                 }
                 else tools.APV_Unsuccessfully(phase_name, 20.0, selected_Oper_switch);//в идеале должен отправляться Max ток КЗ этой модели
                 this.Close();

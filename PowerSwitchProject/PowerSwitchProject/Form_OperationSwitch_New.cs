@@ -80,7 +80,7 @@ namespace PowerSwitchProject
             if (comboBox_Location.SelectedItem != null)
             {
                 newOperSw.Id_Electrical_Substation = electrSubstations.First
-                    (u => u.Name_Electrical_Substation == comboBox_Location.Text).Id_Electrical_Substation;                
+                    (u => u.Name_Electrical_Substation == comboBox_Location.Text).Id_Electrical_Substation;
             }
             else
             {

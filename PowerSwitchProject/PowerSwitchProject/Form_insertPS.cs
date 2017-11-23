@@ -15,7 +15,7 @@ namespace PowerSwitchProject
 {
     public partial class Form_insertPS : Form
     {
-        UserContext myLocalData = MyLocalData.userContext;
+        UserContext myLocalData = MyLocalData.MyuserContext;
         MyMainWindowForm parentForm;
         public Form_insertPS()
         {
@@ -40,7 +40,7 @@ namespace PowerSwitchProject
             InitializeComponent();
 
             try
-            {                
+            {
                 var m = from u in myLocalData.RESes.Local
                         select u.Name_RES;
                 string[] reses = m.ToArray();

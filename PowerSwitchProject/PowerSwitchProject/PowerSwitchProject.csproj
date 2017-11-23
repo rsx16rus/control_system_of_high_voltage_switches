@@ -79,12 +79,6 @@
       <DependentUpon>IdentityForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MyEntities.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="MyMainWindowForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,9 +92,6 @@
     <Compile Include="UserContext.cs" />
     <EmbeddedResource Include="DispetcherInsertedForm.resx">
       <DependentUpon>DispetcherInsertedForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_insertPS.resx">
       <DependentUpon>Form_insertPS.cs</DependentUpon>

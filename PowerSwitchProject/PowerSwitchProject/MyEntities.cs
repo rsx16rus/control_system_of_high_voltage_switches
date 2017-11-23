@@ -102,16 +102,16 @@ namespace PowerSwitchProject
     }
 
     //[Table(Name = "Users")]
-    public class User //????????????????? требует доработки
+    public class User
     {
         //[Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
         //[Column]
-        public string UserPosition { get; set; }
+        public string UserPosition { get; set; }// Наименование конкретной должности
         //[Column]
         public string Password { get; set; }
         //[Column]
-        public string UserType { get; set; }
+        public string UserType { get; set; } //Предусмотрено только "РЭС", "ГПС", "ПТО" и "Руководство"
         //[Column]
         //public int IdSubDivision { get; set; }
     }

@@ -23,33 +23,54 @@ namespace PowerSwitchProject
 
     class MyLocalData
     {
-        public static UserContext userContext { get; set; }//В будущем проработай код на проверку на null, а лучше подумай насчет синглтона
+        public static UserContext MyuserContext { get; set; }//В будущем проработай код на проверку на заполненность.
 
-        public void DataFill(User user)// В рабочей версии должны подгружаться только данные пользователя.
+        public void DataFill(User user)// Сохраняю в Local только данные пользователя.
         {
-            userContext = new UserContext();
-
-            //training
-            var r = from Electrical_Substation in userContext.Electrical_Substations
-                    join Group_PS in (from g in userContext.Group_PSes
-                                      where g.ID_User == user.Id
-                                      select g) on
-                    Electrical_Substation.Id_Group_PS equals Group_PS.Id
-                    select Electrical_Substation;
-
-
-
-            userContext.Electrical_Substations.Join(userContext.Group_PSes.Where(u => u.ID_User == user.Id),
+            bool flag;
+            MyuserContext = new UserContext();
+            
+            if (user.UserType == "ГПС")
+            {
+                MyuserContext.Electrical_Substations.Join(MyuserContext.Group_PSes.Where(u => u.ID_User == user.Id),
                 c => c.Id_Group_PS,
                 o => o.Id,
                 (c, o) => c).Load();//Обязательно проверь правильность работы
-            userContext.Group_PSes.Where(u => u.ID_User == user.Id).Load();
-            userContext.Operating_switches.Load();
-            userContext.RESes.Where(u => u.ID_User == user.Id).Load();
-            userContext.Switch_models.Load();//Заходит целиком
-            userContext.Users.Load();//Заходит целиком
+                flag = true;
+            }
+            else if (user.UserType == "РЭС")
+            {
+                MyuserContext.Electrical_Substations.Join(MyuserContext.RESes.Where(u => u.ID_User == user.Id),
+                c => c.Id_RES,
+                o => o.Id,
+                (c, o) => c).Load();//Обязательно проверь правильность работы
+                flag = true;
+            }
+            else
+            {
+                MyuserContext.Electrical_Substations.Load();//Заходит целиком для остальных ролей
+                flag = true;
+            }
+            MyuserContext.Group_PSes.Where(u => u.ID_User == user.Id).Load();
+            MyuserContext.RESes.Where(u => u.ID_User == user.Id).Load();
+            if (flag)
+            {
+                MyuserContext.Operating_switches.Join(MyuserContext.Electrical_Substations.Local,
+                b => b.Id_Electrical_Substation,
+                g => g.Id,
+                (b, g) => b).Load();//Обязательно проверь правильность работы, при распараллеливании возможно Electrical_Substation.Local будет пуст!!!!         
+            }               
+            MyuserContext.Switch_models.Load();//Заходит целиком
+            MyuserContext.Users.Load();//Заходит целиком
             //context.Customers.Where(c => c.Age > 25).Load(); Пример загрузки по атрибутам            
         }
 
     }
+    //training
+    //var r = from Electrical_Substation in userContext.Electrical_Substations
+    //        join Group_PS in (from g in userContext.Group_PSes
+    //                          where g.ID_User == user.Id
+    //                          select g) on
+    //        Electrical_Substation.Id_Group_PS equals Group_PS.Id
+    //        select Electrical_Substation;
 }
