@@ -58,4 +58,9 @@ namespace PowerSwitchProject
             return list;
         }
     }
+
+    class Electrical_Substation_Insert
+    {
+
+    }
 }

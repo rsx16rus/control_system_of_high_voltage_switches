@@ -51,8 +51,10 @@ namespace PowerSwitchProject
                 MyuserContext.Electrical_Substations.Load();//Заходит целиком для остальных ролей
                 flag = true;
             }
-            MyuserContext.Group_PSes.Where(u => u.ID_User == user.Id).Load();
-            MyuserContext.RESes.Where(u => u.ID_User == user.Id).Load();
+
+            MyuserContext.Group_PSes.Load();//Заходит целиком
+            MyuserContext.RESes.Load();//Заходит целиком
+
             if (flag)
             {
                 MyuserContext.Operating_switches.Join(MyuserContext.Electrical_Substations.Local,
@@ -61,8 +63,7 @@ namespace PowerSwitchProject
                 (b, g) => b).Load();//Обязательно проверь правильность работы, при распараллеливании возможно Electrical_Substation.Local будет пуст!!!!         
             }               
             MyuserContext.Switch_models.Load();//Заходит целиком
-            MyuserContext.Users.Load();//Заходит целиком
-            //context.Customers.Where(c => c.Age > 25).Load(); Пример загрузки по атрибутам            
+            MyuserContext.Users.Load();//Заходит целиком                      
         }
 
     }
