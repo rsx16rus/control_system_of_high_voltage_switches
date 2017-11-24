@@ -48,7 +48,7 @@
             this.comboBox_SwitchModel = new System.Windows.Forms.ComboBox();
             this.textBox_FactoryNumber = new System.Windows.Forms.TextBox();
             this.textBox_DateOfManufacture = new System.Windows.Forms.TextBox();
-            this.textBox_DateOfComissioning = new System.Windows.Forms.TextBox();
+            this.textBox_DateOfCommissioning = new System.Windows.Forms.TextBox();
             this.textBox_PoleWearA = new System.Windows.Forms.TextBox();
             this.textBox_PoleWearB = new System.Windows.Forms.TextBox();
             this.textBox_PoleWearC = new System.Windows.Forms.TextBox();
@@ -239,10 +239,10 @@
             // 
             // textBox_DateOfComissioning
             // 
-            this.textBox_DateOfComissioning.Location = new System.Drawing.Point(38, 443);
-            this.textBox_DateOfComissioning.Name = "textBox_DateOfComissioning";
-            this.textBox_DateOfComissioning.Size = new System.Drawing.Size(270, 22);
-            this.textBox_DateOfComissioning.TabIndex = 21;
+            this.textBox_DateOfCommissioning.Location = new System.Drawing.Point(38, 443);
+            this.textBox_DateOfCommissioning.Name = "textBox_DateOfComissioning";
+            this.textBox_DateOfCommissioning.Size = new System.Drawing.Size(270, 22);
+            this.textBox_DateOfCommissioning.TabIndex = 21;
             // 
             // textBox_PoleWearA
             // 
@@ -328,7 +328,7 @@
             this.Controls.Add(this.textBox_PoleWearC);
             this.Controls.Add(this.textBox_PoleWearB);
             this.Controls.Add(this.textBox_PoleWearA);
-            this.Controls.Add(this.textBox_DateOfComissioning);
+            this.Controls.Add(this.textBox_DateOfCommissioning);
             this.Controls.Add(this.textBox_DateOfManufacture);
             this.Controls.Add(this.textBox_FactoryNumber);
             this.Controls.Add(this.comboBox_SwitchModel);
@@ -376,7 +376,7 @@
         private System.Windows.Forms.ComboBox comboBox_SwitchModel;
         private System.Windows.Forms.TextBox textBox_FactoryNumber;
         private System.Windows.Forms.TextBox textBox_DateOfManufacture;
-        private System.Windows.Forms.TextBox textBox_DateOfComissioning;
+        private System.Windows.Forms.TextBox textBox_DateOfCommissioning;
         private System.Windows.Forms.TextBox textBox_PoleWearA;
         private System.Windows.Forms.TextBox textBox_PoleWearB;
         private System.Windows.Forms.TextBox textBox_PoleWearC;

@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace PowerSwitchProject
 {
-    public partial class Form_OperationSwitch2 : Form
+    public partial class Form_OperationSwitch_Edit : Form
     {
         Table<Switch_model> switchModels;
         Table<Electrical_Substation> electrSubstations;
@@ -22,11 +22,11 @@ namespace PowerSwitchProject
         Operating_switch selected_Oper_switch;
         Switch_model swModel;
 
-        public Form_OperationSwitch2()
+        public Form_OperationSwitch_Edit()
         {
             InitializeComponent();
         }
-        public Form_OperationSwitch2(Operating_switch selectedSwitch, Switch_model swMod)
+        public Form_OperationSwitch_Edit(Operating_switch selectedSwitch, Switch_model swMod)
         {
             InitializeComponent();
 
@@ -57,7 +57,7 @@ namespace PowerSwitchProject
 
             textBox_FactoryNumber.Text = selected_Oper_switch.Factory_Number;
             textBox_DateOfManufacture.Text = selected_Oper_switch.Date_of_Manufacture.ToString();
-            textBox_DateOfComissioning.Text = Convert.ToString(selected_Oper_switch.Date_of_Comissioning);////выбери метод
+            textBox_DateOfComissioning.Text = Convert.ToString(selected_Oper_switch.Date_of_Commissioning);////выбери метод
             ToolsForOperation_Switch t = new ToolsForOperation_Switch();
             textBox_PoleWearA.Text = 
                 Convert.ToString((int)(t.nullDouble_Filter(selected_Oper_switch.Pole_wearA) * 100 / 
@@ -79,7 +79,7 @@ namespace PowerSwitchProject
         {            
             if (!string.IsNullOrWhiteSpace(textBox_DateOfComissioning.Text))
             {
-                selected_Oper_switch.Date_of_Comissioning = DateTime.Parse(textBox_DateOfComissioning.Text);//!!!Проверка на корректность stringа
+                selected_Oper_switch.Date_of_Commissioning = DateTime.Parse(textBox_DateOfComissioning.Text);//!!!Проверка на корректность stringа
             }
             if (!string.IsNullOrWhiteSpace(textBox_DateOfMaintenance.Text))
             {

@@ -147,7 +147,7 @@ namespace PowerSwitchProject
         }
 
         //Событие для кнопок ВВ
-        private void VV_Click(object sender, EventArgs e)
+        private void VV_Click(object sender, EventArgs e)//!!!!!!!!!!!!!!!!!!ОСТАНОВИЛСЯ ЗДЕСЬ!!!!!!!!!!!!!!!
         {
             try
             {

@@ -13,7 +13,7 @@ namespace PowerSwitchProject
         public int NumberOfSwitch_ShortCircuits(UserContext db) //IOrderedQueryable<Electrical_Substation> obj это аналог db.Electrical_Substations
         {
             int numOfKZ = 0;
-            //DataContext db = new DataContext(Program.connectionString);
+            
             foreach (var electricalSubstation in db.Electrical_Substations.Local)
             {
                 var result = from u in db.Operating_switches.Local
@@ -31,7 +31,7 @@ namespace PowerSwitchProject
         public int NumberOfSwitch_MechanicalShutdowns(UserContext db)
         {
             int numOfMex = 0;
-            //DataContext db = new DataContext(Program.connectionString);
+            
             foreach (var electricalSubstation in db.Electrical_Substations.Local)
             {
                 var result = from u in db.Operating_switches.Local
@@ -59,8 +59,37 @@ namespace PowerSwitchProject
         }
     }
 
-    class Electrical_Substation_Insert
+    class Electrical_Substation_Changes
     {
+        public void Electrical_Substation_Insert(Electrical_Substation el)
+        {
+            MyLocalData.MyuserContext.Electrical_Substations.Add(el);
+            MyLocalData.MyuserContext.SaveChanges();
+        }
+        public void Electrical_Substation_Edit()
+        {
+            throw new NotImplementedException("Допиши метод");
+        }
+        public void Electrical_Substation_Delete()
+        {
+            throw new NotImplementedException("Допиши метод");
+        }
+    }
 
+    class Operating_Switch_Changes
+    {
+        public void Operating_Switch_Insert(Operating_switch op_sw)
+        {
+            MyLocalData.MyuserContext.Operating_switches.Add(op_sw);
+            MyLocalData.MyuserContext.SaveChanges();
+        }
+        public void Operating_Switch_Edit()
+        {
+            throw new NotImplementedException("Допиши метод");
+        }
+        public void Operating_Switch_Delete()
+        {
+            throw new NotImplementedException("Допиши метод");
+        }
     }
 }

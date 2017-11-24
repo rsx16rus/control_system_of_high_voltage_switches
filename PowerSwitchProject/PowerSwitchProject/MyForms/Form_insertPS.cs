@@ -13,17 +13,19 @@ using System.Windows;
 
 namespace PowerSwitchProject
 {
-    public partial class Form_insertPS : Form
+    public partial class Form_insertPS : Form//Блок готов
     {
         UserContext myLocalData = MyLocalData.MyuserContext;
         MyMainWindowForm parentForm;
+        
         public Form_insertPS()
         {            
             MessageBox.Show("Программисту: Исправь вызов конструктора формы");
             this.Close();
         }
         public Form_insertPS(MyMainWindowForm f)
-        {
+        {            
+            parentForm = f;
             InitializeComponent();
 
             try
@@ -35,8 +37,7 @@ namespace PowerSwitchProject
                 var n = from u in myLocalData.Group_PSes.Local
                         select u.Name_Group_PS;
                 string[] groups = n.ToArray();
-                comboBox_GroupPS.Items.AddRange(groups);
-                parentForm = f;
+                comboBox_GroupPS.Items.AddRange(groups);                
             }
             catch
             {
@@ -60,9 +61,15 @@ namespace PowerSwitchProject
                 int idGroup = grpS.Id;
                 RES r = myLocalData.RESes.First(u => u.Name_RES == nameRES);
                 int idRes = r.Id;
-                Electrical_Substation_Insert ins = new Electrical_Substation_Insert();//Остановился здесь!!!!!!!!!!!Надо писать класс добавления новой ПС
-
-                ins.elSubstationInsert(name, idGroup, idRes);
+                
+                Electrical_Substation new_electrical_Substation = new Electrical_Substation()// Надо проверить генерируется ли на этой стадии ID?(можно с помощью MessageBox)
+                {
+                    Name_Electrical_Substation = name,
+                    Id_Group_PS = idGroup,
+                    Id_RES = idRes
+                };
+                Electrical_Substation_Changes ins = new Electrical_Substation_Changes();
+                ins.Electrical_Substation_Insert(new_electrical_Substation);
                 parentForm.Refresh();
                 this.Close();
             }

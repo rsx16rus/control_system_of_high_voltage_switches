@@ -23,6 +23,7 @@ namespace PowerSwitchProject
 
     class MyLocalData
     {
+        //Надо проверить не является UserContext соединенным с БД все время!
         public static UserContext MyuserContext { get; set; }//В будущем проработай код на проверку на заполненность.
 
         public void DataFill(User user)// Сохраняю в Local только данные пользователя.

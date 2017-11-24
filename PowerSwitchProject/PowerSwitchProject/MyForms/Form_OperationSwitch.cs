@@ -55,7 +55,7 @@ namespace PowerSwitchProject
 
             textBox_FactoryNumber.Text = selected_Oper_switch.Factory_Number;
             textBox_DateOfManufacture.Text = selected_Oper_switch.Date_of_Manufacture.ToString();
-            textBox_DateOfComissioning.Text = selected_Oper_switch.Date_of_Comissioning.ToString();
+            textBox_DateOfComissioning.Text = selected_Oper_switch.Date_of_Commissioning.ToString();
             ToolsForOperation_Switch t = new ToolsForOperation_Switch();
             textBox_PoleWearA.Text =
                 Convert.ToString((int)(t.nullDouble_Filter(selected_Oper_switch.Pole_wearA) * 100 /
@@ -95,7 +95,7 @@ namespace PowerSwitchProject
 
         private void button_Correcting_OperSw_Click(object sender, EventArgs e)
         {
-            Form_OperationSwitch2 form_correcting = new Form_OperationSwitch2(selected_Oper_switch, swModel);
+            Form_OperationSwitch_Edit form_correcting = new Form_OperationSwitch_Edit(selected_Oper_switch, swModel);
             form_correcting.Show();
         }
     }

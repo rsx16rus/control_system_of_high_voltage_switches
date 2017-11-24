@@ -92,7 +92,7 @@ namespace PowerSwitchProject
         //[Column]
         public DateTime? Date_of_Manufacture { get; set; }  //дата производства
         //[Column]
-        public DateTime? Date_of_Comissioning { get; set; }  //дата ввода в эксплуатацию
+        public DateTime? Date_of_Commissioning { get; set; }  //дата ввода в эксплуатацию
         //[Column]
         public string Factory_Number { get; set; }  //заводской номер
         //[Column]
