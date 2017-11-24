@@ -40,7 +40,8 @@ namespace PowerSwitchProject
             foreach (var electricalSubstation in myUserContext.Electrical_Substations.Local)
             {
                 Button_Fill bf = new Button_Fill();
-                Button newButton = bf.Button_Plus(("PS_Id_" + Convert.ToString(electricalSubstation.Id)), electricalSubstation.Name_Electrical_Substation, 140, 50);//Проверь какое Name присваивается Button
+                Button newButton = bf.
+                    Button_Plus(("PS_Id_" + Convert.ToString(electricalSubstation.Id)), electricalSubstation.Name_Electrical_Substation, 140, 50);//Проверь какое Name присваивается Button
                 {   //задаю значение Margin
                     var margin = newButton.Margin;
                     margin.All = 10;
