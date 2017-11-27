@@ -60,11 +60,11 @@
     <Compile Include="MyForms\Form_OperationSwitch.designer.cs">
       <DependentUpon>Form_OperationSwitch.cs</DependentUpon>
     </Compile>
-    <Compile Include="MyForms\Form_OperationSwitch_Edit.cs">
+    <Compile Include="MyForms\Form_Operating_Switch_Edit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MyForms\Form_OperationSwitch_Edit.designer.cs">
-      <DependentUpon>Form_OperationSwitch_Edit.cs</DependentUpon>
+    <Compile Include="MyForms\Form_Operating_Switch_Edit.designer.cs">
+      <DependentUpon>Form_Operating_Switch_Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="MyForms\IdentityForm.cs">
       <SubType>Form</SubType>
@@ -105,8 +105,8 @@
     <EmbeddedResource Include="MyForms\Form_OperationSwitch.resx">
       <DependentUpon>Form_OperationSwitch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MyForms\Form_OperationSwitch_Edit.resx">
-      <DependentUpon>Form_OperationSwitch_Edit.cs</DependentUpon>
+    <EmbeddedResource Include="MyForms\Form_Operating_Switch_Edit.resx">
+      <DependentUpon>Form_Operating_Switch_Edit.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MyForms\IdentityForm.resx">
       <DependentUpon>IdentityForm.cs</DependentUpon>

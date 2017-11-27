@@ -14,65 +14,58 @@ using System.Windows;
 namespace PowerSwitchProject
 {
     public partial class Form_OperationSwitch : Form
-    {
-        Table<Switch_model> switchModels;
-        Table<Electrical_Substation> electrSubstations;
-        Table<Operating_switch> operSwitches;
-        //DispetcherFormTools tools = new DispetcherFormTools();
+    {        
+        User user;
+        MyMainWindowForm parentform;
         Operating_switch selected_Oper_switch;
-        Switch_model swModel;
+        Switch_model switch_Model;
+        UserContext myUserContext = MyLocalData.MyuserContext;
+
 
         public Form_OperationSwitch()
         {
             InitializeComponent();
         }
-        public Form_OperationSwitch(int VV_ID)
+        public Form_OperationSwitch(MyMainWindowForm form, User u, Operating_switch op_sw)
         {
+            user = u;
+            selected_Oper_switch = op_sw;
+            parentform = form;
             InitializeComponent();
 
-            if (Program.user.UserType == "ПТО" | Program.user.UserType == "Руководство")
+            if (user.UserType == "ПТО" | user.UserType == "Руководство")
             {
                 button_Maintenance_event.Enabled = false;
                 button_Overhaul_event.Enabled = false;
                 button_Correcting_OperSw.Enabled = false;
-            }            
-
-            DataContext db = new DataContext(Program.connectionString);
-            switchModels = db.GetTable<Switch_model>();
-            electrSubstations = db.GetTable<Electrical_Substation>();
-            operSwitches = db.GetTable<Operating_switch>();
-
-            DispetcherFormTools tools = new DispetcherFormTools();
-            selected_Oper_switch = tools.Selected_Switch(VV_ID, operSwitches);
-
-            List_of list_of = new List_of();
-            string namePS = list_of.Label_Text_SelectedPS((int)selected_Oper_switch.Id_Electrical_Substation);
-            textBox_Location.Text = namePS;
+            }
+            
+            textBox_Location.Text = myUserContext.Electrical_Substations.Local.First(b => b.Id == selected_Oper_switch.Id_Electrical_Substation).Name_Electrical_Substation;
             textBox_DispatchingName.Text = selected_Oper_switch.Dispatching_name;
-
-            swModel = tools.Selected_Switch_Model(Convert.ToInt32(selected_Oper_switch.Id_Switch_model), switchModels);
-            textBox_SwitchModel.Text = swModel.Switch_Model_Name;
+                        
+            switch_Model = myUserContext.Switch_models.Local.First(c => c.Id == selected_Oper_switch.Id_Switch_model);
+            textBox_SwitchModel.Text = switch_Model.Switch_Model_Name;
 
             textBox_FactoryNumber.Text = selected_Oper_switch.Factory_Number;
             textBox_DateOfManufacture.Text = selected_Oper_switch.Date_of_Manufacture.ToString();
-            textBox_DateOfComissioning.Text = selected_Oper_switch.Date_of_Commissioning.ToString();
-            ToolsForOperation_Switch t = new ToolsForOperation_Switch();
+            textBox_DateOfComissioning.Text = selected_Oper_switch.Date_of_Commissioning.ToString();            
+
+            //Здесь надо навести порядок с приведением типов, прийти к какому-то единообразию
             textBox_PoleWearA.Text =
-                Convert.ToString((int)(t.nullDouble_Filter(selected_Oper_switch.Pole_wearA) * 100 /
-                t.nullDouble_Filter(swModel.Electrical_Resource_Limit)));
+                Convert.ToString((int)(Convert.ToDouble(selected_Oper_switch.Pole_wearA) * 100 / Convert.ToDouble(switch_Model.Electrical_Resource_Limit)));//Не вспомню - почему Double????
             textBox_PoleWearB.Text =
-                Convert.ToString((int)(t.nullDouble_Filter(selected_Oper_switch.Pole_wearB) * 100 /
-                t.nullDouble_Filter(swModel.Electrical_Resource_Limit)));
+                Convert.ToString((int)(Convert.ToDouble(selected_Oper_switch.Pole_wearB) * 100 / Convert.ToDouble(switch_Model.Electrical_Resource_Limit)));//Не вспомню - почему Double????
             textBox_PoleWearC.Text =
-                Convert.ToString((int)(t.nullDouble_Filter(selected_Oper_switch.Pole_wearC) * 100 /
-                t.nullDouble_Filter(swModel.Electrical_Resource_Limit)));
+                Convert.ToString((int)(Convert.ToDouble(selected_Oper_switch.Pole_wearC) * 100 / Convert.ToDouble(switch_Model.Electrical_Resource_Limit)));//Не вспомню - почему Double????
             textBox_NumberOfKZ.Text = Convert.ToString(selected_Oper_switch.Number_of_Short_Circuits);
-            textBox_numberOfMex_Percent.Text = Convert.ToString((int)(t.nullDouble_Filter(selected_Oper_switch.Number_of_mechanical_Shutdowns) * 100 /
-                t.nullDouble_Filter(swModel.Mechanical_Resource_Limit)));
+            textBox_numberOfMex_Percent.Text = Convert.ToString((int)(Convert.ToDouble(selected_Oper_switch.Number_of_mechanical_Shutdowns) * 100 /
+                Convert.ToDouble(switch_Model.Mechanical_Resource_Limit)));//Не вспомню - почему Double????
             textBox_DateOfMaintenance.Text = selected_Oper_switch.Date_of_Maintenance.ToString();
             textBox_DateOfOverhaul.Text = selected_Oper_switch.Date_of_Overhaul.ToString();
         }
 
+
+        //Эти обработчики не реализованы!!!!!!!!!!
         private void button_Ok_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -85,18 +78,18 @@ namespace PowerSwitchProject
 
         private void button_Maintenance_event_Click(object sender, EventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void button_Overhaul_event_Click(object sender, EventArgs e)
         {
-
+            throw new NotImplementedException();
         }
 
         private void button_Correcting_OperSw_Click(object sender, EventArgs e)
         {
-            Form_OperationSwitch_Edit form_correcting = new Form_OperationSwitch_Edit(selected_Oper_switch, swModel);
-            form_correcting.Show();
+            Form_Operating_Switch_Edit form_operating_switch_edit = new Form_Operating_Switch_Edit(parentform, selected_Oper_switch, switch_Model);
+            form_operating_switch_edit.Show();
         }
     }
 }

@@ -73,7 +73,7 @@ namespace PowerSwitchProject
         {
             flowLayoutPanel_10kB.Controls.Clear();
             flowLayoutPanel_35kB.Controls.Clear();
-            flowLayoutPanel_110_more_kB.Controls.Clear();            
+            flowLayoutPanel_110_more_kB.Controls.Clear();
             Electrical_Substation selectedElectrical_Substation;
             try
             {
@@ -87,7 +87,8 @@ namespace PowerSwitchProject
                 return;
             }
 
-            //название выбранной ПС            
+            //название выбранной ПС    
+            //label_Selected_PS.Text = "";
             label_Selected_PS.Text = selectedElectrical_Substation.Name_Electrical_Substation;
 
             int[] voltage = new int[] { 10, 35, 110, 220 };
@@ -110,7 +111,7 @@ namespace PowerSwitchProject
                         margin.Bottom = 10;
                         newButton.Margin = margin;
                     }
-                    newButton.Click += new EventHandler(this.VV_Click);
+                    newButton.Click += new EventHandler(this.Operation_switch_Click);
                     panels[i].Controls.Add(newButton);
                 }
                 if (user.UserType == "ГПС")//(Блок готов)
@@ -134,7 +135,7 @@ namespace PowerSwitchProject
                 }
             }
         }
-        
+
         private void InsertPS_Button_Click(object sender, EventArgs e)
         {
             Form_insertPS formInsertPS = new Form_insertPS(this);
@@ -147,25 +148,26 @@ namespace PowerSwitchProject
         }
 
         //Событие для кнопок ВВ
-        private void VV_Click(object sender, EventArgs e)//!!!!!!!!!!!!!!!!!!ОСТАНОВИЛСЯ ЗДЕСЬ!!!!!!!!!!!!!!!
+        private void Operation_switch_Click(object sender, EventArgs e)
         {
+            Operating_switch selected_operswitch;
             try
             {
                 string id_VV = (((Button)sender).Name).Substring(10);//извлекаем Id_Operating_Switch
-            int oper_switch_Id = Int32.Parse(id_VV);
+                selected_operswitch = myUserContext.Operating_switches.Local.First(u => u.Id == Int32.Parse(id_VV));
             }
             catch (ArgumentNullException)
             {
-                MessageBox.Show("Ошибка: не удалось определить вызываемый ВВ. Ошибка извлечения ID_VV");
+                MessageBox.Show("Ошибка: не удалось определить вызываемый ВВ. Ошибка извлечения ID_Operation_switch");
                 return;
             }
 
             if (user.UserType == "ГПС" | user.UserType == "ПТО" | user.UserType == "Руководство")
             {
-                Form_OperationSwitch OperSwForm = new PowerSwitchProject.Form_OperationSwitch(oper_switch_Id);
+                Form_OperationSwitch OperSwForm = new Form_OperationSwitch(this, user, selected_operswitch);
                 OperSwForm.Show();
             }
-            else if (Program.user.UserType == "РЭС")
+            else if (user.UserType == "РЭС")//!!!!!!!!!!!!!!ОСТАНОВИЛСЯ ЗДЕСЬ!!!!!!!!!!!!!!!!!!!
             {
                 DispetcherInsertedForm DispForm = new DispetcherInsertedForm(oper_switch_Id);
                 DispForm.Show();

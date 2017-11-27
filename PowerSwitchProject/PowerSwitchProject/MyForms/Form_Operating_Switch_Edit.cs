@@ -13,7 +13,7 @@ using System.Windows;
 
 namespace PowerSwitchProject
 {
-    public partial class Form_OperationSwitch_Edit : Form
+    public partial class Form_Operating_Switch_Edit : Form
     {
         Table<Switch_model> switchModels;
         Table<Electrical_Substation> electrSubstations;
@@ -22,11 +22,11 @@ namespace PowerSwitchProject
         Operating_switch selected_Oper_switch;
         Switch_model swModel;
 
-        public Form_OperationSwitch_Edit()
+        public Form_Operating_Switch_Edit()
         {
             InitializeComponent();
         }
-        public Form_OperationSwitch_Edit(Operating_switch selectedSwitch, Switch_model swMod)
+        public Form_Operating_Switch_Edit(Operating_switch selectedSwitch, Switch_model swMod)
         {
             InitializeComponent();
 
